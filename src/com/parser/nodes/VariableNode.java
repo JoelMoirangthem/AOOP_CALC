@@ -1,5 +1,12 @@
 package com.parser.nodes;
-
-public class VariableNode {
-
+import com.runtime.Environment;
+public class VariableNode implements Expression{
+    private final String name;
+    public VariableNode(String name) {
+        this.name = name;
+    }
+    @Override
+    public Object evaluate(Environment env){
+        return env.get(name);
+    }
 }
