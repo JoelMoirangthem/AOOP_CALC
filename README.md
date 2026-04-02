@@ -224,10 +224,10 @@ Error: Variable not defined: x
 * ✔ Conditional execution
 * ✔ Loop execution
 * ✔ Custom error handling
+* ✔ Equality operators (`==`)
+* ✔ Parentheses support
 * 🔹 (Extendable) Else blocks
 * 🔹 (Extendable) Nested instructions
-* 🔹 (Extendable) Equality operators (`==`)
-* 🔹 (Extendable) Parentheses support
 
 ---
 
