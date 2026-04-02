@@ -26,9 +26,11 @@ public class Tokenizer {
             }
             
             // check the current character is a digit or not
-            if(Character.isDigit(current)){
+            if(Character.isDigit(current) || (current == '-' && pos + 1 < source.length() && Character.isDigit(source.charAt(pos + 1)))){ // handle negative numbers
                 tokens.add(readNumber());
             
+            }else if(current == '"' || current == '\''){
+                tokens.add(readString()); // handle string literals
             }
             else if(Character.isLetter(current)){
                 tokens.add(readIdentifier());
@@ -113,8 +115,16 @@ public class Tokenizer {
                  tokens.add(new Token(TokenType.NOT,"!",line));
                  pos++;
              }
+            //  handle parentheses for grouping
+             else if(current == '('){
+                 tokens.add(new Token(TokenType.LPAREN,"(",line));
+                 pos++;
+             }else if(current == ')'){
+                 tokens.add(new Token(TokenType.RPAREN,")",line));
+                 pos++;
+             }
              else{
-                 throw new RuntimeException("Unexpected character: " + current + " at line " + line);
+                throw new com.errors.CalcException("Faaaaahhhhh...... Unexpected character: " + current, line);//handling proper error message with line number using custom exception
              }
         }
         tokens.add(new Token(TokenType.EOF,"",line));
@@ -127,7 +137,12 @@ public class Tokenizer {
         return source.charAt(pos + 1);
     }
     private Token readNumber(){
+        
         int start = pos;
+        if(source.charAt(pos) == '-'){
+            pos++;
+        }
+        // handle negative numbers by conditionally allowing a leading '-'
         while(pos < source.length() && Character.isDigit(source.charAt(pos))){
             pos++;
         }
@@ -141,8 +156,6 @@ public class Tokenizer {
             pos++;
         }
         return new Token(TokenType.IDENTIFIER,source.substring(start,pos),line);
-
-        
     }
     // most important part is to read the string literal
     // for example: "Hello, World!" etc.
@@ -160,7 +173,7 @@ public class Tokenizer {
             }
         }
         if(pos >= source.length()){
-            throw new RuntimeException("Unterminated string literal at line " + line);
+            throw new com.errors.CalcException("Faaaaahhhhh...... Unterminated string literal", line); // handling proper error message with line number using custom exception
         }
         // now find value of string literal eg "Hello, World!" => Hello, World!
         String value = source.substring(start,pos);

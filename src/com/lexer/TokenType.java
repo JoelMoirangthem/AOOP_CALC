@@ -12,6 +12,7 @@ public enum TokenType {
     ARROW , // =>
     
     PLUS,MINUS,MUL,DIV,MOD,GT,LT,EQ,NEQ,EQEQ,GEQ,LEQ,AND,OR,NOT,
+    LPAREN,RPAREN,
 
     NEWLINE,
     EOF
