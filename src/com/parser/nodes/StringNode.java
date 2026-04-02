@@ -1,5 +1,13 @@
 package com.parser.nodes;
+import com.runtime.Environment;
+public class StringNode implements Expression{
+    private final String value;
 
-public class StringNode {
-
+    public StringNode(String value) {
+        this.value = value;
+    }
+    @Override
+    public Object evaluate(Environment env){
+        return value;
+    }
 }
