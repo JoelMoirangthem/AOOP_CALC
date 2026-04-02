@@ -1,5 +1,13 @@
 package com.parser.nodes;
+import com.runtime.Environment;
+public class NumberNode implements Expression{
+    private final double value;
 
-public class NumberNode {
-
+    public NumberNode(double value) {
+        this.value = value;
+    }
+    @Override
+    public Object evaluate(Environment env){
+        return value;
+    }
 }
