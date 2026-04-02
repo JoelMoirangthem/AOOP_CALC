@@ -243,7 +243,6 @@ Error: Variable not defined: x
 ## 👨‍💻 Author
 
 **Joel Moirangthem**
-Computer Science Engineering Student
 
 ---
 
