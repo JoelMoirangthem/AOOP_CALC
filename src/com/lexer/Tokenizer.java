@@ -76,33 +76,45 @@ public class Tokenizer {
                 pos++;
             }
             else if(current == '>' ){
-                tokens.add(new Token(TokenType.GT,">",line));
-                pos++;
+                if(peek() == '='){
+                    tokens.add(new Token(TokenType.GEQ,">=",line));
+                    pos += 2;
+                }else{
+                    tokens.add(new Token(TokenType.GT,">",line));
+                    pos++;
+                }
+
             }
             else if(current == '<' ){
-                tokens.add(new Token(TokenType.LT,"<",line));
-                pos++;
+                if(peek() == '='){
+                    tokens.add(new Token(TokenType.LEQ,">",line));
+                    pos++;
+                }else{
+                    tokens.add(new Token(TokenType.LT,"<",line));
+                    pos++;
+                }
+
             }
             else if(current == '=' ){
-                tokens.add(new Token(TokenType.EQ,"=",line));
-                pos++;
+                if(peek() == '='){
+                    tokens.add(new Token(TokenType.EQEQ,"==",line));
+                    pos += 2;
+                }else{
+                    tokens.add(new Token(TokenType.EQ,"=",line));
+                    pos++;
+                }
+
             }
-            else if(current == '!' && peek() == '='){
-                tokens.add(new Token(TokenType.NEQ,"!=",line));
-                pos += 2;
+            else if(current == '!'){
+                if(peek() == '='){
+                    tokens.add(new Token(TokenType.NEQ,"!=",line));
+                    pos += 2;
+                }else{
+                    tokens.add(new Token(TokenType.NOT,"!",line));
+                }
+
             }
-            else if(current == '=' && peek() == '='){
-                tokens.add(new Token(TokenType.EQEQ,"==",line));
-                pos += 2;
-            }
-            else if(current == '>' && peek() == '='){
-                tokens.add(new Token(TokenType.GEQ,">=",line));
-                pos += 2;
-            }
-            else if(current == '<' && peek() == '='){
-                tokens.add(new Token(TokenType.LEQ,"<=",line));
-                pos += 2;
-            }
+
             else if(current == '&' && peek() == '&'){
                 tokens.add(new Token(TokenType.AND,"&&",line));
                 pos += 2;
